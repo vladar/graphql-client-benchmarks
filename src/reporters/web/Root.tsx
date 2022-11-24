@@ -243,9 +243,9 @@ export class Root extends React.PureComponent<{}, RootState> {
 
     const example = examples[exampleIndex];
     this._suitePromise = runSuite(this._collector.consumeEvent, benchmarks, clients, example);
-    this._suitePromise.then(canceled => {
+    this._suitePromise.then((canceled: any) => {
       this.setState({
-        runState: canceled !== null ? RunState.CANCELED : RunState.COMPLETE,
+        runState: canceled === true ? RunState.CANCELED : RunState.COMPLETE,
       });
       this._suitePromise = null;
     });
