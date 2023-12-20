@@ -1,14 +1,14 @@
-import { DocumentNode } from "graphql";
-import { ConcreteRequest, OperationDescriptor, ReaderFragment } from "relay-runtime";
+import { DocumentNode, GraphQLSchema } from 'graphql';
+import { ConcreteRequest, OperationDescriptor, ReaderFragment } from 'relay-runtime';
 
 export interface SingleExample {
-  response: object;  
+  response: object;
 }
 
 // Each client implementation extends this with the additional properties it
 // requires to execute operations.
 export interface Example extends SingleExample {
-  title: string;  
+  title: string;
   partials: SingleExample[];
   fragment?: RawFragment;
 }
@@ -31,7 +31,7 @@ export interface RawFragment {
 export interface Fragment {
   typename: string;
   id: string;
-  response: FragmentResponse
+  response: FragmentResponse;
 }
 
 export interface FragmentResponse {
