@@ -167,7 +167,7 @@ async function runClientBenchmark(
     example = {
       ...rootExample,
       title,
-      partials: partials.map(p => client.transformRawExample(p)),
+      partials: partials.map(p => client.transformRawExample({ ...p, schema } as any)),
     };
   } catch (error) {
     context.failure = { error, phase: Phase.VERIFY };
@@ -374,15 +374,14 @@ function statsSummary(
 }
 
 export function saveData(name: string, stat: number) {
-  if (!global.gc)
-    return
-  
+  if (!global.gc) return;
+
   const { readFile, writeFile } = require('fs');
   // read the file
   readFile('./findings.json', { encoding: 'utf8', flag: 'a+' }, (err, data) => {
     if (err) {
       console.error(`Error while reading file: ${err}`);
-      return
+      return;
     }
     const normalized = stat.toFixed(3);
 
@@ -401,7 +400,7 @@ export function saveData(name: string, stat: number) {
     // write new data back to the file
     writeFile('./findings.json', JSON.stringify(updatedData, null, 2), err => {
       if (err) console.log(`Error writing file: ${err}`);
-      return
+      return;
     });
   });
 }
